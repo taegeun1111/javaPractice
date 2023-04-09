@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class phoneMemberRepository {
     private static Map<String,Member> phoneMap;
+    Member member;
     static {
         phoneMap = new HashMap<>();
     }
@@ -17,7 +18,10 @@ public class phoneMemberRepository {
 
     //2.전화번호 수정
     public Member changeMemberInfo(String inputChangeMember,String inputChangePhone,String inputChangeAddr){
-        Member changeMember = phoneMap.put(inputChangeMember, new Member(inputChangeMember, inputChangePhone, inputChangeAddr));
+//        Member changeMember = phoneMap.put(inputChangeMember, new Member(inputChangeMember, inputChangePhone, inputChangeAddr));
+        Member changeMember = phoneMap.get(inputChangeMember);
+        changeMember.setPhone(inputChangePhone);
+        changeMember.setAddr(inputChangeAddr);
         return changeMember;
     }
 
@@ -27,9 +31,8 @@ public class phoneMemberRepository {
         return resultCheck;
     }
     //3.전화번호 삭제 (조건 : 없으면 알림)
-    public Member deleteMemberInfo(String deleteMember){
+    public void deleteMemberInfo(String deleteMember){
         Member removeMember = phoneMap.remove(deleteMember);
-        return removeMember;
     }
 
     //4.전화번호 검색 (조건 : 없으면 알림)
@@ -40,9 +43,11 @@ public class phoneMemberRepository {
     
     //5.전화번호 전체 출력
     public void allMemberInfo(){
-//        for (phoneMap member : phoneMap.values()) {
+        for (String allMember : phoneMap.keySet()) {
+            Member memberInfo = phoneMap.get(allMember);
+            System.out.printf("[이름:%s 전화번호:%s 주소:%s]\n",memberInfo.getName(),memberInfo.getPhone(),memberInfo.getAddr());
 
-//        }
+        }
     }
     
 
